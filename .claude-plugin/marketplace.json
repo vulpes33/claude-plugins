@@ -1,23 +1,23 @@
 {
-  "name": "rrrfffrrr",
+  "name": "vulpes",
   "owner": {
-    "name": "rrrfffrrr",
-    "url": "https://github.com/rrrfffrrr"
+    "name": "vulpes33",
+    "url": "https://github.com/vulpes33"
   },
   "description": "Personal Claude Code plugin catalog",
   "plugins": [
     {
-      "name": "vulpes",
+      "name": "wiki",
       "source": {
         "source": "github",
-        "repo": "rrrfffrrr/vulpes-wiki"
+        "repo": "vulpes33/vulpes-wiki"
       },
-      "description": "Wiki mechanics for OKF knowledge bundles - the vwiki CLI, its ruleset, and the vulpes:wiki agent skill",
+      "description": "Wiki mechanics for OKF knowledge bundles - the vwiki CLI, its ruleset, and the wiki agent skill",
       "author": {
-        "name": "rrrfffrrr"
+        "name": "vulpes33"
       },
-      "homepage": "https://github.com/rrrfffrrr/vulpes-wiki",
-      "repository": "https://github.com/rrrfffrrr/vulpes-wiki"
+      "homepage": "https://github.com/vulpes33/vulpes-wiki",
+      "repository": "https://github.com/vulpes33/vulpes-wiki"
     }
   ]
 }

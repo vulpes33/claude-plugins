@@ -10,3 +10,7 @@ Personal Claude Code plugin catalog.
 
 Each plugin lives in its own repository (or under `plugins/` here for small ones);
 this repository is only the catalog.
+
+> Note: current Claude Code rejects git-url plugin sources and resolves github
+> sources over ssh. Until that lands, `vulpes-wiki` installs as its own marketplace:
+> `/plugin marketplace add vulpes33/vulpes-wiki` → `/plugin install wiki@vulpes`.

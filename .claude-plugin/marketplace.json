@@ -8,11 +8,8 @@
   "plugins": [
     {
       "name": "wiki",
-      "source": {
-        "source": "git",
-        "url": "https://github.com/vulpes33/vulpes-wiki.git"
-      },
-      "description": "Wiki mechanics for OKF knowledge bundles - the vwiki CLI, its ruleset, and the wiki agent skill",
+      "source": "./plugins/wiki",
+      "description": "Wiki mechanics for OKF knowledge bundles - the vwiki CLI, its ruleset, and the five agent skills (init, seed, flush, validate, migrate)",
       "author": {
         "name": "vulpes33"
       },

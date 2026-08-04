@@ -1,0 +1,10 @@
+# vulpes-wiki ruleset - identity and version.
+# On a rules change: bump `version`, then set `content_fingerprint` (the failing test prints it).
+# Unreleased, a wording edit MAY refresh the fingerprint alone.
+# Digits: major = adopting bundles restructure; minor = a procedure step changes; patch = a constraint tightens.
+# plugin.json versions the package, not this file.
+name: vulpes-wiki-ruleset
+version: 1.0.0
+content_fingerprint: c2874c184eed166e
+okf_version: "0.2"
+okf_spec: https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/3fcbb9f828c2f23d109c855ee403c3a4c81f3a96/okf/SPEC.md

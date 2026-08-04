@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+// Dev runs the TypeScript directly (node >= 22.18 strips the types). The
+// release build emits JS beside it and this specifier becomes ../src/cli.js.
+import { main } from "../src/cli.js";
+
+// Not process.exit(): stdout may still be draining into a pipe.
+process.exitCode = main(process.argv.slice(2));

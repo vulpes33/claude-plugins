@@ -1,0 +1,12 @@
+{
+  "name": "vulpes-wiki",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "vwiki": "bin/vwiki"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

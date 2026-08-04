@@ -1,0 +1,90 @@
+---
+name: flush
+description: Close conversation seeding on an OKF wiki bundle - one pass over the whole `inbox/` queue: classify each item, land the kept originals in `raw/`, write the concepts that pin them, validate to an empty inbox. Use on "flush the inbox", "process the wiki queue", "write up what we decided", at session close, or on the `inbox` WARN from `vwiki validate`.
+---
+
+# Flush the inbox
+
+The CLOSING bracket of seeding. One pass over the whole queue, on request or at session
+close - not item by item as they arrive.
+
+## 1. List
+
+Enumerate every file under `inbox/`, all levels. Show the person the pending records:
+the decision, the stated reason, what was left open.
+
+Stopping here is a complete outcome. Say the queue stands, and stop.
+
+## 2. Classify
+
+Two kinds, and only two:
+
+| Item | Lands as |
+|------|----------|
+| Something this project wrote or decided | one concept under `product/` (knowledge this project asserts) or `conventions/` (a rule this wiki follows) |
+| An externally published work | ONE summary concept under `reference/` |
+
+For an external work, decide whether its licence permits keeping the collected copy in
+the bundle. It does not: the copy is not kept, and the concept cites the URL instead.
+
+Cannot decide an item - which layer, which concept it changes, whose decision it was?
+Leave it in the queue and ask. The WARN keeps it visible. Never write a concept by
+guessing.
+
+### Named but absent
+
+While classifying, list every external work the queue's items NAME that the bundle
+lacks - no `reference/` summary, no queue item. Show the list; the person picks what
+to fetch. Picked works are fetched into `inbox/` and join this same pass: read,
+summarized under `reference/`, the copy kept in `raw/` only where the licence permits.
+Never fetch beyond the pick, and never write a summary for a work nobody opened.
+
+## 3. Land the kept files in raw/
+
+- Move. Never delete, never rewrite. Name and extension unchanged.
+- Collision on the name: append `-YYYY-MM-DD` (today) before the extension.
+- Group per `ruleset/directories.md`: files stay flat until three or more documents share
+  one category, and only then does a subdirectory appear. Same rule under `product/`,
+  `conventions/`, `reference/`.
+- A landed file is never edited again, and `raw/` never gets an `index.md`.
+
+## 4. Write the concepts
+
+```yaml
+---
+type: <Convention | Reference | the project's own type>   # REQUIRED, non-empty (§11.2)
+title: <display name>
+description: <one sentence - the generated index copies it verbatim>
+status: draft
+generated: { by: "<producer>/<version>", at: "<ISO 8601 datetime>" }
+stale_after: <YYYY-MM-DD>          # required on every reference/ summary
+sources:
+  - id: <key>
+    resource: "/raw/<landed file>"  # bundle-absolute
+    title: <what it is>
+    last_modified: <YYYY-MM-DD>
+    source_blob_sha: <sha>          # literal placeholder; --fix fills it
+---
+```
+
+- In-bundle pin (`resource` starting `/`): `source_blob_sha` AND `last_modified`. Write
+  the sha as the literal `<sha>`; `--fix` is the only sanctioned writer of the value.
+- URL-only source (the licence kept the copy out): `last_modified` alone, no sha.
+- A `reference/` summary says what the work is and what it says - `# What it is`,
+  `# What it says` - usable without reopening the source. NEVER a sentence about this
+  project, `description` included. What this project takes from the work is a
+  `conventions/` or `product/` concept that links to the summary.
+- One fact lives in one concept; everywhere else links to it. A record that only changes
+  an existing concept edits that concept - it does not earn a second one.
+- The bundle keeps stamps in `conventions/templates/`? Author from them.
+- Never write `verified`.
+
+## 5. Gate
+
+    vwiki validate <bundle> --fix
+    vwiki validate <bundle>
+
+Done is: `inbox/` holds no items (its WARN is gone) and exit 0.
+
+A `hashes` ERROR on a concept you did not touch is not yours to repin blindly - judge it
+first, per the validate skill.

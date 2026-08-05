@@ -75,7 +75,7 @@ verified:
 ## Never
 
 - Hand-write `index.md`, `log.md`, `verified`, or a `source_blob_sha` value.
-- Modify or delete anything under `raw/`, or write an `index.md` there.
+- Modify or delete anything under `raw/`, or hand-write the `index.md` there - `--fix` generates it.
 - Rename or move a file to make a finding disappear.
 - Invent the target of a broken link.
 - Treat exit 2, or any stack trace, as a bundle finding.

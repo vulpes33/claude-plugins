@@ -9,20 +9,9 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { filesUnder } from "../bundle.js";
 import { finding, WARN } from "../finding.js";
 export const CHECK = "inbox";
-/** Every file under `dir`, recursively. */
-function filesUnder(dir) {
-    const out = [];
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-        const full = path.join(dir, entry.name);
-        if (entry.isDirectory())
-            out.push(...filesUnder(full));
-        else
-            out.push(full);
-    }
-    return out;
-}
 export function run(bundle) {
     const box = path.join(bundle.root, "inbox");
     let stat;

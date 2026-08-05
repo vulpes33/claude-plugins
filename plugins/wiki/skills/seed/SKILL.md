@@ -21,9 +21,15 @@ Questions, thinking aloud, and instructions to you are not decisions.
 
 ## The record
 
-No frontmatter - `inbox/` is excluded from every check, so a record is plain markdown.
+Two frontmatter keys and no more. The flush lands records in `raw/`, where the generated
+store index lists them by `type` and describes them by `description`.
 
 ```markdown
+---
+type: Record
+description: <the decision, one line>
+---
+
 # <YYYY-MM-DD> - <the decision, one line>
 
 - Speaker: human:<id>

@@ -20,7 +20,9 @@ export function run(bundle) {
                 level: ERROR,
                 check: CHECK,
                 path: rel,
-                message: "missing; the directory holds concepts",
+                message: rel === `${indexFile.STORE}/index.md`
+                    ? "missing; what the store holds is listed here"
+                    : "missing; the directory holds concepts",
             }));
             continue;
         }

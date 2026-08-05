@@ -44,8 +44,15 @@ Information collected from external networks.
 ### raw/
 
 The originals of information and files collected from `inbox/` or external networks.
-No `index.md` is kept here.
 A file lands as an unmodified copy, and once placed it is never edited.
+The spec's §8 indexes concepts and says nothing about a store of originals; these rules fill that silence and contradict none of it.
+
+- `index.md` - the generated store index, at this level only; no subdirectory keeps one
+- `**/*` - the originals; a stored file never takes the name `index.md`, which belongs to the generator
+- The index carries no frontmatter, and lists `# Records` then `# Files` - both always present, each entry a path relative to `raw/`, sorted
+- `# Records` - every `.md` here carrying `type: Record`, described by its own `description`
+- `# Files` - every other stored file, described by the `description` of the first concept citing it, or `cited by no concept`
+- A conversation record carries `type: Record` and a one-line `description`, and nothing else
 
 ### inbox/
 

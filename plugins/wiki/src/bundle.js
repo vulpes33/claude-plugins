@@ -88,6 +88,26 @@ export function markdownUnder(dir) {
 export function hasMarkdownUnder(dir) {
     return markdownUnder(dir).length > 0;
 }
+/** Every file under `dir`, recursively, sorted. Extension is not consulted. */
+export function filesUnder(dir) {
+    const out = [];
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, entry.name);
+        if (entry.isDirectory())
+            out.push(...filesUnder(full));
+        else
+            out.push(full);
+    }
+    return out.sort(comparePaths);
+}
+export function isDirectory(p) {
+    try {
+        return fs.statSync(p).isDirectory();
+    }
+    catch {
+        return false;
+    }
+}
 /**
  * Python's `str.partition`: everything before the separator, the separator,
  * everything after - and the whole string with two empties when it is absent.

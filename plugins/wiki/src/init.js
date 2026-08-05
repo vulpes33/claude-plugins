@@ -9,8 +9,10 @@
  * not written at all - adopting a ruleset is a deliberate act, and the skill
  * that performs it writes `conventions/ruleset.md` itself.
  *
- * `raw/` and `inbox/` are made empty. Git cannot carry an empty directory, so
- * they cannot come from the template; they reach git with their first file.
+ * `inbox/` is made empty: git cannot carry an empty directory, so the queue
+ * cannot come from the template and reaches git with its first item. `raw/`
+ * does come from the template - the store carries its generated index from
+ * the first day, which is what gives git something to hold.
  *
  * Refusals, all judged before anything is written (P5):
  * - the target sits inside an existing bundle (its own ancestor chain only -
@@ -30,7 +32,7 @@ import { ancestors, BundleError, comparePaths, message, resolvePath } from "./bu
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const TEMPLATE = path.join(HERE, "..", "template");
 /** Directories a bundle owns that no template can carry, being empty. */
-export const EMPTY_PLACES = ["raw", "inbox"];
+export const EMPTY_PLACES = ["inbox"];
 function exists(p) {
     try {
         fs.lstatSync(p);
@@ -176,6 +178,6 @@ export function initBundle(target, options = {}) {
     out("  - declare the project language and writing rules in conventions/project.md" +
         " (English is assumed otherwise)");
     out("  - after edits: `vwiki validate --fix`, then `vwiki validate`");
-    out("note: raw/ and inbox/ reach git (and the root index) with their first file");
+    out("note: inbox/ reaches git with its first item; it is never named by a generated index");
     return 0;
 }

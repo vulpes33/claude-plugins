@@ -36,7 +36,8 @@ Several digits moved at once (0.9.0 to 1.1.0): the highest one that changed defi
 
 - A move keeps the name and the content, and fixes every inbound link - the `links`
   findings tell you which.
-- `raw/` is append-only: never edit, never delete, never index a landed original.
+- `raw/` is append-only: never edit, never delete. Its `index.md` is generated - `--fix`
+  writes it, and a bundle that predates it gets one on the first `--fix`.
   Re-grouping there is a move and nothing else, and only where the directory rule asks -
   a subdirectory once three or more documents share one category.
 - A restructure that changes what a confirmed concept says removes its `human:` entry and

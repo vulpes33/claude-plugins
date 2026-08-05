@@ -15,8 +15,9 @@ exists? Nothing to create - use the validate skill.
     vwiki init [<dir>]        # default: .wiki
 
 Copies the template - root `index.md` plus one generated `index.md` for `product/`,
-`conventions/`, `reference/` - and makes `raw/` and `inbox/` empty. They are empty
-because git carries no empty directory; they reach git with their first file.
+`conventions/`, `reference/` and the store index for `raw/` - and makes `inbox/` empty.
+The queue is empty because git carries no empty directory; it reaches git with its
+first item.
 
 Refusals, all judged before anything is written: the target is already a bundle, sits
 inside one, or exists and is not empty. A failure rolls back and names any leftover it

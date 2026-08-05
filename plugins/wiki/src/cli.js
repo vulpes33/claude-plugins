@@ -44,17 +44,39 @@ class UsageError extends Error {
 function load(p) {
     return Bundle.load(findRoot(p || process.cwd()));
 }
+/** How many times index generation may feed itself before it is a cycle. */
+export const MAX_PASSES = 10;
 /** Repin and regenerate indexes to a fixed point; returns what was written. */
 export function applyFix(bundle) {
     const written = new Set(hashes.repin(bundle));
     let current = Bundle.load(bundle.root);
-    for (const directory of indexFile.directoriesNeedingIndex(current)) {
-        if (indexFile.write(current, directory))
-            written.add(path.join(directory, "index.md"));
+    // One generated index can be the first markdown in its directory, which is
+    // what makes the index above it name that directory. A single pass would
+    // leave behind the drift it had just created - a store indexed for the first
+    // time, and a root index that still does not know the store is there. Iterate
+    // to a fixed point, the same bar repinning holds itself to.
+    let converged = false;
+    for (let pass = 0; pass < MAX_PASSES; pass += 1) {
+        let changed = false;
+        for (const directory of indexFile.directoriesNeedingIndex(current)) {
+            if (indexFile.write(current, directory)) {
+                written.add(path.join(directory, "index.md"));
+                changed = true;
+            }
+        }
+        current = Bundle.load(current.root);
+        if (!changed) {
+            converged = true;
+            break;
+        }
+    }
+    if (!converged) {
+        throw new Error(`index generation did not converge in ${MAX_PASSES} passes; ` +
+            "an index that changes another index that changes it back is the usual cause");
     }
     if (written.size) {
         // Writing an index changes a blob that something may pin.
-        for (const p of hashes.repin(Bundle.load(current.root)))
+        for (const p of hashes.repin(current))
             written.add(p);
         current = Bundle.load(current.root);
     }

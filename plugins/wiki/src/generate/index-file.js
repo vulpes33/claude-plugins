@@ -9,8 +9,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import { okfVersion } from "../adoption.js";
-import { comparePaths, Doc, hasMarkdownUnder, markdownUnder, parseFrontmatter, RESERVED, } from "../bundle.js";
+import { comparePaths, Doc, filesUnder, hasMarkdownUnder, isDirectory, markdownUnder, parseFrontmatter, RESERVED, } from "../bundle.js";
 const PLACEHOLDER = /^<.*>$/;
+/** The store. Its index is generated from the files, not from concepts. */
+export const STORE = "raw";
+const RECORD = "Record";
+const UNCITED = "cited by no concept";
 /** The target's own description, or its type when there is nothing usable. */
 function describe(doc) {
     const desc = String(doc.meta.description ?? "").trim();
@@ -19,21 +23,30 @@ function describe(doc) {
     return doc.type || "";
 }
 /**
- * Every directory holding concepts, minus the ones the rules exclude.
+ * Every directory holding concepts, plus the store, minus the ones the rules
+ * exclude.
  *
- * `raw/` gets no index at any level: an original may itself be named
- * `index.md`, so a generator writing there would overwrite what the directory
- * exists to keep. `inbox/` is a queue, not a graph. `conventions/templates/`
- * holds the methodology's stamps, and an index in an excluded place is not
- * generated (the reserved-files rules).
+ * The store's root gets an index of what it holds - a store nobody can read
+ * without listing the directory is a store nobody reads. Below that root it
+ * gets none: one index names every original at every depth, and a second one
+ * deeper down would say the same thing twice. `inbox/` is a queue, not a
+ * graph. `conventions/templates/` holds the methodology's stamps, and an index
+ * in an excluded place is not generated (the reserved-files rules).
  */
 export function directoriesNeedingIndex(bundle) {
     const parents = new Set(markdownUnder(bundle.root).map((p) => path.dirname(p)));
+    // The store is indexed for holding files, not for holding markdown: a store
+    // of nothing but PDFs still needs its index, and an empty one still gets it.
+    const store = path.join(bundle.root, STORE);
+    if (isDirectory(store))
+        parents.add(store);
     const dirs = [];
     for (const d of [...parents].sort(comparePaths)) {
         const raw = path.relative(bundle.root, d).split(path.sep).join("/");
         const rel = raw === "." ? "" : raw;
-        if (rel.startsWith("raw") || rel.startsWith("inbox"))
+        if (rel === "inbox" || rel.startsWith("inbox/"))
+            continue;
+        if (rel.startsWith(`${STORE}/`))
             continue;
         if (rel === "conventions/templates" || rel.startsWith("conventions/templates/")) {
             continue;
@@ -42,8 +55,66 @@ export function directoriesNeedingIndex(bundle) {
     }
     return dirs;
 }
+/**
+ * The store's index: what is kept, one line per file, paths relative to the
+ * store root so the listing survives regrouping into subdirectories.
+ *
+ * A stored file cannot describe itself - it is somebody else's document, kept
+ * byte for byte - so its description is borrowed from the concept that cites
+ * it. Saying `cited by no concept` where none does is the point: an original
+ * nothing cites is provenance nobody claimed, and the listing is where that
+ * shows.
+ */
+function renderStore(bundle, directory) {
+    const records = [];
+    const files = [];
+    for (const full of filesUnder(directory)) {
+        const rel = path.relative(directory, full).split(path.sep).join("/");
+        // The generated index is not one of the stored files.
+        if (rel === "index.md")
+            continue;
+        if (rel.endsWith(".md")) {
+            const { meta } = parseFrontmatter(fs.readFileSync(full, "utf8"));
+            if (meta.type === RECORD) {
+                records.push([rel, describe(new Doc({ path: full, rel, text: "", meta }))]);
+                continue;
+            }
+        }
+        files.push([rel, citedDescription(bundle, rel)]);
+    }
+    const out = [];
+    for (const [heading, entries] of [
+        ["Records", records],
+        ["Files", files],
+    ]) {
+        // Both sections stand whether or not they hold anything: a store with no
+        // records says so by showing an empty section, not by dropping it.
+        if (out.length)
+            out.push("");
+        out.push(`# ${heading}`);
+        if (!entries.length)
+            continue;
+        out.push("");
+        for (const [rel, desc] of [...entries].sort(compareEntries)) {
+            out.push(`* [${rel}](${rel})` + (desc ? ` - ${desc}` : ""));
+        }
+    }
+    return out.join("\n").replace(/\s+$/, "") + "\n";
+}
+/** The description of the first concept citing this stored file, verbatim. */
+function citedDescription(bundle, rel) {
+    const resource = `/${STORE}/${rel}`;
+    for (const doc of bundle.concepts) {
+        if (doc.sources.some((entry) => entry.resource === resource)) {
+            return String(doc.meta.description ?? "").trim();
+        }
+    }
+    return UNCITED;
+}
 export function render(bundle, directory) {
     const relDir = path.relative(bundle.root, directory);
+    if (relDir === STORE)
+        return renderStore(bundle, directory);
     const byType = new Map();
     const subdirs = [];
     const children = fs

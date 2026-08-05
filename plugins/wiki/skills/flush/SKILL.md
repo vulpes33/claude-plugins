@@ -69,6 +69,10 @@ sources:
 ---
 ```
 
+- `description` is what every generated index shows for this concept. For an external
+  work: the identifier plus its official title ("RFC 9457: Problem Details for HTTP
+  APIs"). Otherwise: one sentence saying what the concept holds. Never the file name or
+  the title restated - an index line reading `[x](x) - x` carries nothing.
 - In-bundle pin (`resource` starting `/`): `source_blob_sha` AND `last_modified`. Write
   the sha as the literal `<sha>`; `--fix` is the only sanctioned writer of the value.
 - URL-only source (the licence kept the copy out): `last_modified` alone, no sha.

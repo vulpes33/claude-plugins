@@ -55,6 +55,9 @@ right, complete, or current. That part is yours and the person's.
 
 - `stale_after` has arrived: re-read the concept against its sources. Still current - move
   the date forward. Not - edit it.
+- Read the generated indexes as a reader would: an entry whose description restates its
+  link text (`[x](x) - x`) marks a `description` to rewrite - identifier plus official
+  title for an external work, one informative sentence otherwise.
 - A person confirms a concept by reading it with what it links to and agreeing. Then, and
   only then:
 

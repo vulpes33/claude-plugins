@@ -59,6 +59,8 @@ right, complete, or current. That part is yours and the person's.
   link text (`[x](x) - x`) marks a `description` to rewrite - identifier plus official
   title for an external work, one informative sentence otherwise. In `raw/index.md` the
   line to rewrite is the citing `sources` entry's `title`, not the concept.
+- A sentence broken across lines is hard-wrap: rejoin it in a concept body. A landed
+  record keeps its bytes - catch wrapped records in the queue, before the flush.
 - A person confirms a concept by reading it with what it links to and agreeing. Then, and
   only then:
 

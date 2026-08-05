@@ -44,6 +44,8 @@ description: <the decision, one line>
   `<producer>/<version>` for an agent, `process:<id>` for an automated process.
 - `Reason`: write "no reason given" rather than invent one.
 - `Rejected`: "none named". `Open`: "nothing". `Supersedes`: omit unless it does.
+- Prose never hard-wraps: a sentence stays on one line, however long. A break in the
+  bytes survives every copy; viewers soft-wrap.
 - Never the transcript. Never your own reasoning. Only what was said.
 
 A file the person hands the bundle - a paper, a spec, a page - is dropped into `inbox/`

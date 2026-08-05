@@ -85,6 +85,7 @@ sources:
   `conventions/` or `product/` concept that links to the summary.
 - One fact lives in one concept; everywhere else links to it. A record that only changes
   an existing concept edits that concept - it does not earn a second one.
+- Prose never hard-wraps: a sentence stays on one line, however long.
 - The bundle keeps stamps in `conventions/templates/`? Author from them.
 - Never write `verified`.
 

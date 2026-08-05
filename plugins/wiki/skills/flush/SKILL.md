@@ -63,7 +63,7 @@ stale_after: <YYYY-MM-DD>          # required on every reference/ summary
 sources:
   - id: <key>
     resource: "/raw/<landed file>"  # bundle-absolute
-    title: <what it is>
+    title: <the work's own title>   # raw/index.md lists the file under this
     last_modified: <YYYY-MM-DD>
     source_blob_sha: <sha>          # literal placeholder; --fix fills it
 ---
@@ -73,6 +73,9 @@ sources:
   work: the identifier plus its official title ("RFC 9457: Problem Details for HTTP
   APIs"). Otherwise: one sentence saying what the concept holds. Never the file name or
   the title restated - an index line reading `[x](x) - x` carries nothing.
+- A `sources` entry's `title` names that one file as its own work - a licence file is a
+  licence, not the specification it covers. `raw/index.md` shows it, and the concept's
+  `description` only where an entry carries no title.
 - In-bundle pin (`resource` starting `/`): `source_blob_sha` AND `last_modified`. Write
   the sha as the literal `<sha>`; `--fix` is the only sanctioned writer of the value.
 - URL-only source (the licence kept the copy out): `last_modified` alone, no sha.

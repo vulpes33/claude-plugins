@@ -51,7 +51,7 @@ The spec's §8 indexes concepts and says nothing about a store of originals; the
 - `**/*` - the originals; a stored file never takes the name `index.md`, which belongs to the generator
 - The index carries no frontmatter, and lists `# Records` then `# Files` - both always present, each entry a path relative to `raw/`, sorted
 - `# Records` - every `.md` here carrying `type: Record`, described by its own `description`
-- `# Files` - every other stored file, described by the `description` of the first concept citing it, or `cited by no concept`
+- `# Files` - every other stored file, described by the `title` of the first `sources` entry citing it, or that concept's `description` when the entry carries no title, or `cited by no concept`
 - A conversation record carries `type: Record` and a one-line `description`, and nothing else
 
 ### inbox/

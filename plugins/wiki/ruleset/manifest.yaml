@@ -4,7 +4,7 @@
 # Digits: major = adopting bundles restructure; minor = a procedure step changes; patch = a constraint tightens.
 # plugin.json versions the package, not this file.
 name: vulpes-wiki-ruleset
-version: 1.1.0
-content_fingerprint: 8aef52de0f7c558d
+version: 1.2.0
+content_fingerprint: 0c4151d91127c4e8
 okf_version: "0.2"
 okf_spec: https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/3fcbb9f828c2f23d109c855ee403c3a4c81f3a96/okf/SPEC.md

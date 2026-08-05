@@ -60,10 +60,10 @@ export function directoriesNeedingIndex(bundle) {
  * store root so the listing survives regrouping into subdirectories.
  *
  * A stored file cannot describe itself - it is somebody else's document, kept
- * byte for byte - so its description is borrowed from the concept that cites
- * it. Saying `cited by no concept` where none does is the point: an original
- * nothing cites is provenance nobody claimed, and the listing is where that
- * shows.
+ * byte for byte - so it is named by the citing `sources` entry, which is the
+ * one place a work's own title is written. Saying `cited by no concept` where
+ * none does is the point: an original nothing cites is provenance nobody
+ * claimed, and the listing is where that shows.
  */
 function renderStore(bundle, directory) {
     const records = [];
@@ -101,13 +101,22 @@ function renderStore(bundle, directory) {
     }
     return out.join("\n").replace(/\s+$/, "") + "\n";
 }
-/** The description of the first concept citing this stored file, verbatim. */
+/**
+ * What the first `sources` entry citing this stored file calls it.
+ *
+ * The entry's `title` names the work itself, which is what a listing of
+ * originals is for: the licence of a spec and the spec are two works, and one
+ * concept's `description` cannot say both. That description is the fallback,
+ * for an entry written without a title.
+ */
 function citedDescription(bundle, rel) {
     const resource = `/${STORE}/${rel}`;
     for (const doc of bundle.concepts) {
-        if (doc.sources.some((entry) => entry.resource === resource)) {
-            return String(doc.meta.description ?? "").trim();
-        }
+        const entry = doc.sources.find((e) => e.resource === resource);
+        if (!entry)
+            continue;
+        const title = String(entry.title ?? "").trim();
+        return title || String(doc.meta.description ?? "").trim();
     }
     return UNCITED;
 }

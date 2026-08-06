@@ -7,8 +7,8 @@
   "description": "Personal Claude Code plugin catalog",
   "plugins": [
     {
-      "name": "wiki",
-      "source": "./plugins/wiki",
+      "name": "vwiki",
+      "source": "./plugins/vwiki",
       "description": "Wiki mechanics for OKF knowledge bundles - the vwiki CLI, its ruleset, and the five agent skills (init, seed, flush, validate, migrate)",
       "author": {
         "name": "vulpes33"

@@ -1,0 +1,8 @@
+claude-plugins
+Copyright 2026 vulpes33
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+Hosted plugins carry their own LICENSE and NOTICE. plugins/wiki includes the
+Open Knowledge Format (OKF) v0.2 specification, Copyright Google LLC, licensed
+under the Apache License, Version 2.0 - see plugins/wiki/NOTICE.

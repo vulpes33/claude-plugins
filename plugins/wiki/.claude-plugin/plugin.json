@@ -1,7 +1,7 @@
 {
   "name": "wiki",
   "description": "Wiki mechanics for OKF knowledge bundles - the vwiki CLI, its ruleset, and the five agent skills (init, seed, flush, validate, migrate)",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "author": {
     "name": "vulpes33",
     "url": "https://github.com/vulpes33"

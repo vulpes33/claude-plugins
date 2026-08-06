@@ -1,0 +1,14 @@
+vulpes-wiki
+Copyright 2026 vulpes33
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
+
+This product includes the Open Knowledge Format (OKF) v0.2 specification,
+Copyright Google LLC, licensed under the Apache License, Version 2.0.
+
+  Source: GoogleCloudPlatform/knowledge-catalog, okf/SPEC.md
+          at commit 3fcbb9f828c2f23d109c855ee403c3a4c81f3a96
+  Here:   ruleset/okf.md
+  Change: a YAML frontmatter block was prepended, so that the file is an
+          OKF document within this bundle. The specification body below
+          that block is unmodified.

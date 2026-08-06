@@ -6,11 +6,7 @@ Personal Claude Code plugin catalog.
 
 | Plugin | What it is | Install |
 |--------|-----------|---------|
-| `wiki` | Wiki mechanics for OKF knowledge bundles - `vwiki` CLI, ruleset, agent skill ([repo](https://github.com/vulpes33/vulpes-wiki)) | `/plugin install wiki@vulpes` |
+| `wiki` | Wiki mechanics for OKF knowledge bundles - the `vwiki` CLI, its ruleset, and five agent skills | `/plugin install wiki@vulpes` |
 
-Each plugin lives in its own repository (or under `plugins/` here for small ones);
-this repository is only the catalog.
-
-> Note: current Claude Code rejects git-url plugin sources and resolves github
-> sources over ssh. Until that lands, `vulpes-wiki` installs as its own marketplace:
-> `/plugin marketplace add vulpes33/vulpes-wiki` → `/plugin install wiki@vulpes`.
+Each plugin is hosted here under `plugins/`, built from a source repository kept elsewhere;
+this repository is the catalog and the artifacts it serves.

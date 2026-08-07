@@ -5,6 +5,10 @@ description: Run `vwiki validate` on an OKF knowledge bundle, resolve every find
 
 # Validate a bundle
 
+The CLI is `bin/vwiki` at the plugin root, two directories above this file.
+Installed under Claude Code it is also on PATH as plain `vwiki`; in a checkout it is `bin/vwiki`.
+`vwiki` below means whichever of those resolves.
+
 ## 1. Run it
 
     vwiki validate [<bundle>] [--fix] [--json]

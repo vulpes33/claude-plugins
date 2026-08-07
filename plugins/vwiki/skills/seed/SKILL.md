@@ -8,6 +8,10 @@ description: Open conversation seeding on an OKF wiki bundle - from this point e
 This is the OPENING bracket. Invoking it declares seeding active for the rest of the
 session. The flush skill closes it.
 
+The CLI is `bin/vwiki` at the plugin root, two directories above this file.
+Installed under Claude Code it is also on PATH as plain `vwiki`; in a checkout it is `bin/vwiki`.
+`vwiki` below means whichever of those resolves.
+
 ## While seeding is active
 
 The moment the person STATES a decision, write the record - before answering, before

@@ -8,7 +8,9 @@ description: Create an OKF knowledge bundle with `vwiki init` and adopt the vulp
 A bundle root is the directory whose `index.md` carries `okf_version`. One already
 exists? Nothing to create - use the validate skill.
 
-`vwiki` is on PATH when the plugin is installed; from a checkout it is `bin/vwiki`.
+The CLI is `bin/vwiki` at the plugin root, two directories above this file.
+Installed under Claude Code it is also on PATH as plain `vwiki`; in a checkout it is `bin/vwiki`.
+`vwiki` below means whichever of those resolves.
 
 ## 1. Lay the skeleton down
 

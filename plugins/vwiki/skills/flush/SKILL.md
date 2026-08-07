@@ -8,6 +8,10 @@ description: Close conversation seeding on an OKF wiki bundle - one pass over th
 The CLOSING bracket of seeding. One pass over the whole queue, on request or at session
 close - not item by item as they arrive.
 
+The CLI is `bin/vwiki` at the plugin root, two directories above this file.
+Installed under Claude Code it is also on PATH as plain `vwiki`; in a checkout it is `bin/vwiki`.
+`vwiki` below means whichever of those resolves.
+
 ## 1. List
 
 Enumerate every file under `inbox/`, all levels. Show the person the pending records:

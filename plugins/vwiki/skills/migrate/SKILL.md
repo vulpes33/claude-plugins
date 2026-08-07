@@ -8,6 +8,10 @@ description: Bring an OKF wiki bundle up to the ruleset version the installed vw
 Trigger: the `adoption` WARN - the bundle adopts an older version than the tool ships.
 It rides on exit 0; nothing else is broken by it alone.
 
+The CLI is `bin/vwiki` at the plugin root, two directories above this file.
+Installed under Claude Code it is also on PATH as plain `vwiki`; in a checkout it is `bin/vwiki`.
+`vwiki` below means whichever of those resolves.
+
 The opposite case is NOT this skill's work: exit 2 reading `refuses to check against a
 newer ruleset than it carries` means the bundle is ahead of the tool. Update the plugin or
 the package. Never lower the adoption record to silence it, and never work around the gate.

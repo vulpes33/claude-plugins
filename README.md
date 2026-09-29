@@ -1,11 +1,15 @@
 # claude-plugins
 
-Personal Claude Code plugin catalog.
+This catalog has moved to [vulpes-facility/claude-plugins](https://github.com/vulpes-facility/claude-plugins).
+It keeps the marketplace name `vulpes`, so `vwiki@vulpes` installs as before,
+and new vwiki releases are published there only.
 
-    /plugin marketplace add vulpes33/claude-plugins
+    claude plugin marketplace add vulpes-facility/claude-plugins
+    claude plugin install vwiki@vulpes
 
-| Plugin | What it is | Install |
-|--------|-----------|---------|
-| `vwiki` | Wiki mechanics for OKF knowledge bundles - the `vwiki` CLI, its ruleset, and five agent skills | `/plugin install vwiki@vulpes` |
+If you added this catalog, point `vulpes` at the new repository; vwiki stays installed:
+
+1. If `~/.claude/settings.json` declares `extraKnownMarketplaces.vulpes`, set its `source.repo` to `vulpes-facility/claude-plugins`.
+2. Run `claude plugin marketplace add vulpes-facility/claude-plugins`, then `claude plugin marketplace update vulpes`.
 
 Apache-2.0 - see `LICENSE` and `NOTICE`.
